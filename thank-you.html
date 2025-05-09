@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Application Status</title>
+  <title>Request Failed</title>
   <style>
     body {
       margin: 0;
@@ -12,7 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #e0f7fa, #e3f2fd);
+      background: linear-gradient(135deg, #ffebee, #fce4ec);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
     }
@@ -25,24 +25,17 @@
       max-width: 340px;
       width: 100%;
       box-sizing: border-box;
-      color: #333;
-    }
-
-    .message {
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: #1877F2;
-      font-weight: 600;
+      color: #c62828;
     }
 
     .spinner {
-      border: 6px solid #e0e0e0;
-      border-top: 6px solid #1877F2;
+      border: 6px solid #fddede;
+      border-top: 6px solid #c62828;
       border-radius: 50%;
       width: 60px;
       height: 60px;
       animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
+      margin: 0 auto 20px;
     }
 
     @keyframes spin {
@@ -54,47 +47,53 @@
       display: none;
     }
 
-    #thank-you-message {
-      font-size: 16px;
-      color: #2e7d32;
-      font-weight: 500;
-      margin-top: 10px;
+    .icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+      animation: pulse 1s infinite;
     }
 
-    .highlight {
-      font-size: 20px;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+    }
+
+    .message {
+      font-size: 22px;
       font-weight: bold;
-      color: #d32f2f;
       margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #444;
+    }
+
+    .small {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="message" id="status-message" role="status" aria-live="polite">
-      Verifying your details...
-    </div>
     <div class="spinner" id="spinner" aria-hidden="true"></div>
-    <div id="thank-you-message" class="hidden">
-      <div class="highlight">Congratulations!</div>
-      Your application has been received.<br>
-      If selected, we’ll contact you shortly.<br>
-      Thank you for your interest in <strong>SmartPhone</strong>.
+
+    <div id="error-content" class="hidden">
+      <div class="icon">❌</div>
+      <div class="message">Request Failed</div>
+      <div class="description">We're sorry, something went wrong while processing your request.</div>
+      <div class="small">Please try again later.</div>
     </div>
   </div>
 
   <script>
+    // Show error content after 4 seconds
     setTimeout(function () {
-      // Show congratulations message
       document.getElementById('spinner').classList.add('hidden');
-      document.getElementById('thank-you-message').classList.remove('hidden');
-      document.getElementById('status-message').textContent = 'Thank you!';
-
-      // Redirect after 3 more seconds (total 8s)
-      setTimeout(function () {
-        window.location.href = "https://dialog.lk/promos/win-iphone-15"; // Change to your actual URL
-      }, 3000);
-    }, 5000);
+      document.getElementById('error-content').classList.remove('hidden');
+    }, 4000);
   </script>
 </body>
 </html>
